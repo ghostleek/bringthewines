@@ -4,6 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { RSC } from "next/dist/client/components/app-router-headers";
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 export default function AddWine(){
     const [name, setName] = useState("")
     const [type, setType] = useState("")
@@ -23,7 +27,7 @@ export default function AddWine(){
             return;
         }
         try {
-            const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/wines', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wines`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json" 

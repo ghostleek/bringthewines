@@ -2,6 +2,9 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default function EditWineForm( id, name, type, description, price, status){
     const [newName, setNewName] = useState(name);
@@ -16,7 +19,7 @@ export default function EditWineForm( id, name, type, description, price, status
         e.preventDefault();
 
         try{
-            const res = await fetch(`http://localhost:3000/api/wines/${id}`,{
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wines`,{
                 method: "PUT",
                 headers:{
                     "Content-type":"application/json"

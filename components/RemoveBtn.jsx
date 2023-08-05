@@ -3,6 +3,9 @@
 
 import { HiOutlineTrash } from "react-icons/hi";
 import { useRouter} from "next/navigation";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default function RemoveBtn( {id} ){
     const router = useRouter();
