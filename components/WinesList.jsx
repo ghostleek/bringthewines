@@ -37,20 +37,24 @@ export default async function WineList() {
             key = {t._id}
             className = "mt-4 p-4 border border-slate-300 rounded-md flex justify-between gap-5 items-start">
                 <div>
-                    <div style={{color: t.type === 'Red' ? 'red' : 'inherit'}}>{t.type}</div> {/* Apply the red color if type is "Red" */}
+                    <div style={{color: t.type === 'Red' ? 'red' : t.type === 'White' ? 'grey' : 'inherit'}}>{t.type}</div>
                     <h2 className = "font-light text-xl pb-2">{t.name}</h2>
                     <div className = "pb-2">{t.description}</div>
                     <h3 className = "font-bold">${t.price}</h3>
                     {/* Show the WhatsApp button if the status is "Available" */}
                     <div class = "pt-3">
-                    {t.status === 'Available' && (
-                            <a href={whatsappURL} target="_blank" rel="noopener noreferrer">
-                                <button className="bg-black text-white p-2 rounded-md justify-self-end">
-                                    Buy now
-                                </button>
-                            </a>
-                        )}
-                    </div>                
+                    {t.status === 'Available' ? (
+                        <a href={whatsappURL} target="_blank" rel="noopener noreferrer">
+                        <button className="bg-black text-white p-2 rounded-md w-28">
+                            Buy now
+                        </button>
+                        </a>
+                    ) : t.status === 'Reserved' ? (
+                        <button className="bg-gray-300 text-gray-600 p-2 rounded-md w-28" disabled>
+                        Reserved
+                        </button>
+                    ) : null}                    
+                </div>                
                 </div>
                 <div className ="flex gap-2">
                     {/* probably have a hacky front-end way to hide these buttons*/}

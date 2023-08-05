@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/router"; // Fixed import path
+import { useRouter } from "next/navigation";
 import { RSC } from "next/dist/client/components/app-router-headers";
 
 export default function AddWine(){
