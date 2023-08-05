@@ -1,9 +1,11 @@
 import EditWineForm from "@/components/EditWineForm";
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const getWineById = async(id) => {
     try{
-        const res = await fetch(`https://localhost:3000/api/wines/${id}`, { cache: "no-store", });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wines`, { cache: "no-store", });
         if (!res.ok) {
             throw new Error("Failed to fetch Wine");
         }

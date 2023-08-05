@@ -1,11 +1,13 @@
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import {HiPencilAlt} from "react-icons/hi"
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const getWines = async() => {
     try {
-        const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/wines', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wines`, {
             cache: "no-store",
         });
         if (!res.ok) {
