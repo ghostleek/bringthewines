@@ -5,9 +5,9 @@ import { NextResponse } from "next/server";
 // create routes for POST
 // confirmed POST works via postman
 export async function POST(request){
-    const { name, type, status, price, description } = await request.json();
+    const { name, type, status, price, description, vintage, ctscore } = await request.json();
     await connectMongoDB();
-    await Wine.create({ name, type, status, price, description });
+    await Wine.create({ name, type, status, price, description, vintage, ctscore });
     return NextResponse.json({ message:"Wine Created" }, { status: 201 });
 }
 
@@ -38,7 +38,9 @@ export async function DELETE(request){
             type: wine.type,
             status: wine.status,
             price: wine.price,
-            description: wine.description
+            description: wine.description,
+            ctscore: wine.ctscore,
+            vintage: wine.vintage
         };
     
         // Delete the wine

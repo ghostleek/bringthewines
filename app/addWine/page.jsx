@@ -7,6 +7,8 @@ import { RSC } from "next/dist/client/components/app-router-headers";
 export default function AddWine(){
     const [name, setName] = useState("")
     const [type, setType] = useState("")
+    const [vintage, setVintage] = useState("")
+    const [ctscore, setCtscore] = useState("")
     const [price, setPrice] = useState("")
     const [description, setDescription] = useState("")
     const [status, setStatus] = useState("Available");
@@ -16,7 +18,7 @@ export default function AddWine(){
     const handleSubmit = async (e) => { 
         e.preventDefault();
 
-        if (!name || !type || !price || !description || !status){
+        if (!name || !type || !price || !description || !status || !vintage || !ctscore){
             alert("Oops - you missed a field. Please check(:")
             return;
         }
@@ -26,7 +28,7 @@ export default function AddWine(){
                 headers: {
                     "Content-type": "application/json" 
                 },
-                body: JSON.stringify({name,type,price,description,status})
+                body: JSON.stringify({name,type,price,description,status,ctscore,vintage})
                 });
         if (res.ok){
             router.push('/')
@@ -59,6 +61,18 @@ export default function AddWine(){
           <option value="Dessert">Dessert</option>
         </select>
         <input 
+        className= "border border-slate-500 px-2 rounded"
+        type = "text"
+        placeholder = "Vintage"
+        onChange={e => setVintage(e.target.value)} 
+        />
+        <input 
+        className= "border border-slate-500 px-2 rounded"
+        type = "text"
+        placeholder = "CT Score"
+        onChange={e => setCtscore(e.target.value)} 
+        />
+                <input 
         className= "price-input border border-slate-500 px-2 rounded"
         type = "text"
         placeholder = "Price"

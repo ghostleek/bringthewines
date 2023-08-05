@@ -2,6 +2,7 @@ import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import {HiPencilAlt} from "react-icons/hi"
 
+
 const getWines = async() => {
     try {
         const res = await fetch('http://localhost:3000/api/wines', {
@@ -38,9 +39,9 @@ export default async function WineList() {
             className = "mt-4 p-4 border border-slate-300 rounded-md flex justify-between gap-5 items-start">
                 <div>
                     <div style={{color: t.type === 'Red' ? 'red' : t.type === 'White' ? 'grey' : 'inherit'}}>{t.type}</div>
-                    <h2 className = "font-light text-xl pb-2">{t.name}</h2>
+                    <div class = "flex"><h2 className="font-light bg-stone-100 rounded-md p-2"> {t.vintage} </h2><h2 className = "font-light text-xl p-2">{t.name}</h2></div>
                     <div className = "pb-2">{t.description}</div>
-                    <h3 className = "font-bold">${t.price}</h3>
+                    <div class = "flex"><h3 className = "font-bold">${t.price} </h3>&nbsp;| {t.ctscore} </div>
                     {/* Show the WhatsApp button if the status is "Available" */}
                     <div class = "pt-3">
                     {t.status === 'Available' ? (

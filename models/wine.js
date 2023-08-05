@@ -24,7 +24,13 @@ const wineSchema = new Schema(
         description: { 
             type: String, 
             required: true 
-        }      
+        },
+        vintage: {
+            type: Number,
+        },
+        ctscore: {
+            type: Number,
+        }        
     },{
         timestamps: true
     }
