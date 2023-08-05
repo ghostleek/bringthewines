@@ -14,5 +14,5 @@ export async function GET(request,{ params }){
     const { id } = params;
     await connectMongoDB();
     const wine = await Wine.findOne({_id: id});
-    return NextResponse.json({ topic }, {status: 200})
+    return NextResponse.json({ wine }, {status: 200})
 }
