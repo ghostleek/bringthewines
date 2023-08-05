@@ -23,7 +23,7 @@ export default function AddWine(){
             return;
         }
         try {
-            const res = await fetch('http://localhost:3000/api/wines', {
+            const res = await fetch('${process.env.NEXT_PUBLIC_API_URL}/api/wines', {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json" 
