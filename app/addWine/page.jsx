@@ -38,7 +38,7 @@ export default function AddWine(){
     };
 
     return (
-    <form className = "flex flex-col gap-3">
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
         <div className="font-bold items-center">Add a Wine</div>
         <input 
         className= "border border-slate-500 px-2 rounded"
@@ -72,7 +72,7 @@ export default function AddWine(){
         />
         <select 
             className="border border-slate-500 px-2 rounded"
-            value={type} // Bind the value to the state
+            value={status} // Bind the value to the state
             onChange={e => setStatus(e.target.value)} // Update the state on change
         >
           <option value="" disabled>Select status</option>
