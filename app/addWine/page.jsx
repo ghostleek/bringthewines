@@ -9,7 +9,7 @@ export default function AddWine(){
     const [type, setType] = useState("")
     const [price, setPrice] = useState("")
     const [description, setDescription] = useState("")
-    const [status, setStatus] = useState("")
+    const [status, setStatus] = useState("Available");
 
     const router = useRouter()
 
@@ -76,7 +76,7 @@ export default function AddWine(){
             onChange={e => setStatus(e.target.value)} // Update the state on change
         >
           <option value="" disabled>Select status</option>
-          <option value="Available" selected>Available</option>
+          <option value="Available">Available</option>
           <option value="Sold">Sold</option>
           <option value="Reserved">Reserved</option>
         </select>

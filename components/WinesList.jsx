@@ -1,6 +1,8 @@
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import {HiPencilAlt} from "react-icons/hi"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWhatsApp } from '@fortawesome/react-fontawesome';
 
 const getWines = async() => {
     try {
@@ -23,25 +25,45 @@ export default async function WineList() {
 
     return (
         <>
-        {wines.map((t) => (
+        {wines.map((t) => {
+            // Prepare the WhatsApp message
+            const whatsappMessage = `Hi, I am interested to buy ${t.name} for ${t.price}. Can I suggest a few time/places for self collection`;
+            // Encode the message for use in a URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            // Create the WhatsApp URL
+            const whatsappURL = `https://wa.me/+6597383295?text=${encodedMessage}`;
+
+            return (
+
             <div 
             key = {t._id}
             className = "mt-4 p-4 border border-slate-300 rounded-md flex justify-between gap-5 items-start">
                 <div>
-                    <h2 className = "font-light text-2xl">{t.name}</h2>
-                    <div>{t.type}</div>
-                    <div>${t.price}</div>
-                    <div>{t.description}</div>
-                    <div>{t.status}</div>
+                    <div style={{color: t.type === 'Red' ? 'red' : 'inherit'}}>{t.type}</div> {/* Apply the red color if type is "Red" */}
+                    <h2 className = "font-light text-xl pb-2">{t.name}</h2>
+                    <div className = "pb-2">{t.description}</div>
+                    <h3 className = "font-bold">${t.price}</h3>
+                    {/* Show the WhatsApp button if the status is "Available" */}
+                    <div class = "pt-3">
+                    {t.status === 'Available' && (
+                            <a href={whatsappURL} target="_blank" rel="noopener noreferrer">
+                                <button className="bg-black text-white p-2 rounded-md justify-self-end">
+                                    <FontAwesomeIcon icon="faWhatsapp" /> Buy now
+                                </button>
+                            </a>
+                        )}
+                    </div>                
                 </div>
                 <div className ="flex gap-2">
+                    {/* probably have a hacky front-end way to hide these buttons*/}
                     <RemoveBtn id={t._id}/>
                     <Link href={`/editWine/${t._id}`}>
                         <HiPencilAlt size ={24} />
                     </Link>
                 </div>
             </div>
-        ))}
+            );
+        })}
         </>
     );
 }
