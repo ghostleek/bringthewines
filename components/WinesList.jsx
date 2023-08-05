@@ -20,7 +20,8 @@ const getWines = async() => {
 
 
 export default async function WineList() {
-    const { wines } = await getWines();
+    const response = await getWines();
+    const wines = response?.wines || [];
 
     return (
         <>
