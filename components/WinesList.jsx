@@ -35,7 +35,7 @@ export default async function WineList() {
                     <div>{t.status}</div>
                 </div>
                 <div className ="flex gap-2">
-                    <RemoveBtn />
+                    <RemoveBtn id={t._id}/>
                     <Link href={`/editWine/${t._id}`}>
                         <HiPencilAlt size ={24} />
                     </Link>

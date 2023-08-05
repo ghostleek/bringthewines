@@ -1,8 +1,25 @@
-import { HiOutlineTrash } from "react-icons/hi";
+// turn this into client component
+"use client";
 
-export default function RemoveBtn(){
+import { HiOutlineTrash } from "react-icons/hi";
+import { useRouter} from "next/navigation";
+
+export default function RemoveBtn( {id} ){
+    const router = useRouter();
+    const removeWine = async() => {
+        const confirmed = confirm('Are you sure?')
+        if (confirmed){
+            const res = await fetch(`http://localhost:3000/api/wines?id=${id}`,{
+                method: "DELETE"
+            });
+            if (res.ok){
+            router.refresh();
+            }
+        }
+    };
+    // add onclick
     return (
-        <button className="text-red-400">
+        <button onClick ={removeWine} className="text-red-400">
             <HiOutlineTrash size = {24} />
         </button>
     );
