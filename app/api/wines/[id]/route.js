@@ -7,9 +7,6 @@ export async function PUT(request, { params }){
     const { newName: name, newType: type, newStatus: status, newPrice: price, newDescription: description } = await request.json();
     await connectMongoDB();
     await Wine.findByIdAndUpdate(id, { name, type, status, price, description });
-    if (!updatedWine) {
-        return response.status(404).json({ message: "Wine not found" });
-    }
     return NextResponse.json({ message: "Wine Updated"}, { status:200});
 }
 
