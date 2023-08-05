@@ -1,8 +1,6 @@
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import {HiPencilAlt} from "react-icons/hi"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWhatsApp } from '@fortawesome/react-fontawesome';
 
 const getWines = async() => {
     try {
@@ -48,7 +46,7 @@ export default async function WineList() {
                     {t.status === 'Available' && (
                             <a href={whatsappURL} target="_blank" rel="noopener noreferrer">
                                 <button className="bg-black text-white p-2 rounded-md justify-self-end">
-                                    <FontAwesomeIcon icon="faWhatsapp" /> Buy now
+                                    Buy now
                                 </button>
                             </a>
                         )}
