@@ -1,22 +1,47 @@
-import RemoveBtn from "./RemoveBtn";
 import Link from "next/link";
+import RemoveBtn from "./RemoveBtn";
 import {HiPencilAlt} from "react-icons/hi"
 
-export default function WineList() {
-    return <>
-    <div className = "mt-4 p-4 border border-slate-300 rounded-md flex justify-between gap-5 items-start">
-        <div>
-            <h2 className = "font-light text-2xl">Wine Name</h2>
-            <div>Wine Type</div>
-            <div>Wine Price</div>
-            <div>Wine Description</div>
-        </div>
-        <div className ="flex gap-2">
-            <RemoveBtn />
-            <Link href={'/editWine/'}>
-                <HiPencilAlt size ={24} />
-            </Link>
-        </div>
-    </div>
-    </>
+const getWines = async() => {
+    try {
+        const res = await fetch('http://localhost:3000/api/wines', {
+            cache: "no-store",
+        });
+        if (!res.ok) {
+            throw new Error("Failed to fetch wines");
+        }
+        const data = await res.json(); // Parse the response as JSON
+        return data; // Assuming the response object has a 'wines' property
+    } catch (error) {
+        console.log("Error loading wines");
+    }
+};
+
+
+export default async function WineList() {
+    const { wines } = await getWines();
+
+    return (
+        <>
+        {wines.map((t) => (
+            <div 
+            key = {t._id}
+            className = "mt-4 p-4 border border-slate-300 rounded-md flex justify-between gap-5 items-start">
+                <div>
+                    <h2 className = "font-light text-2xl">{t.name}</h2>
+                    <div>{t.type}</div>
+                    <div>${t.price}</div>
+                    <div>{t.description}</div>
+                    <div>{t.status}</div>
+                </div>
+                <div className ="flex gap-2">
+                    <RemoveBtn />
+                    <Link href={`/editWine/${t._id}`}>
+                        <HiPencilAlt size ={24} />
+                    </Link>
+                </div>
+            </div>
+        ))}
+        </>
+    );
 }
