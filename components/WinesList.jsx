@@ -5,27 +5,27 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const getWines = async (baseURL) => {
+const getWines = async() => {
     try {
-        const endpoint = `${baseURL}/api/wines`;
-
-        const res = await fetch(endpoint, {
+        const baseURL = process.env.NODE_ENV === 'development' ? `${process.env.NEXT_PUBLIC_API_URL}/api/wines` : 'https://bringthewines.vercel.app//api/wines';
+        const res =  await fetch(baseURL, {
             cache: "no-store",
         });
-
         if (!res.ok) {
             throw new Error(`Failed to fetch wines with status ${res.status}`);
         }
-
-        const data = await res.json();
-        return data;
-
+        const data = await res.json(); // Parse the response as JSON
+        return data; // Assuming the response object has a 'wines' property
     } catch (error) {
         console.log("Error loading wines:", error.message, error.stack);
     }
 };
 
-function WineList({ wines = [] }) {
+
+export default async function WineList() {
+    const response = await getWines();
+    const wines = response?.wines || [];
+
     return (
         <>
         {wines.map((t) => {
@@ -74,18 +74,3 @@ function WineList({ wines = [] }) {
         </>
     );
 }
-
-export async function getServerSideProps(context) {
-    const { req } = context;
-    const protocol = req.headers['x-forwarded-proto'] || 'http';
-    const baseURL = `${protocol}://${req.headers.host}`;
-    
-    const response = await getWines(baseURL);
-    const wines = response?.wines || [];
-
-    return {
-        props: { wines }
-    };
-}
-
-export default WineList;
