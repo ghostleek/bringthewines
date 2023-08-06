@@ -5,22 +5,37 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const getWines = async() => {
+const getWines = async () => {
     try {
-        const baseURL = process.env.NODE_ENV === 'development' ? `${process.env.NEXT_PUBLIC_API_URL}/api/wines` : '/api/wines';
-        const res =  await fetch(baseURL, {
+        let baseURL;
+
+        if (process.env.NODE_ENV === 'development') {
+            baseURL = `${process.env.NEXT_PUBLIC_API_URL}/api/wines`;
+        } else {
+            // If you're on the client-side, window object would be available
+            if (typeof window !== 'undefined') {
+                baseURL = `${window.location.origin}/api/wines`;
+            } else {
+                // Handle the case for server-side (this is a fallback and might not be ideal for all scenarios)
+                baseURL = '/api/wines';
+            }
+        }
+
+        const res = await fetch(baseURL, {
             cache: "no-store",
         });
+
         if (!res.ok) {
             throw new Error(`Failed to fetch wines with status ${res.status}`);
         }
-        const data = await res.json(); // Parse the response as JSON
-        return data; // Assuming the response object has a 'wines' property
+
+        const data = await res.json();
+        return data;
+
     } catch (error) {
         console.log("Error loading wines:", error.message, error.stack);
     }
 };
-
 
 export default async function WineList() {
     const response = await getWines();
