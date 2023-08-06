@@ -1,5 +1,6 @@
 import connectMongoDB from "@/libs/mongodb";
 import WinesList from "@/components/WinesList";
+import { getWines } from "../components/WinesList";
 
 export default function Home(){
   return <WinesList />;
