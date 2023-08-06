@@ -12,7 +12,7 @@ export default function RemoveBtn( {id} ){
     const removeWine = async() => {
         const confirmed = confirm('Are you sure?')
         if (confirmed){
-            const baseURL = process.env.NODE_ENV === 'development' ? `${process.env.NEXT_PUBLIC_API_URL}/api/wines` : '/api/wines';
+            const baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/wines` : 'https://bringthewines.vercel.app/api/wines';
             const res =  await fetch(baseURL, {
                 method: "DELETE"
             });
