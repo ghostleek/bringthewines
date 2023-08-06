@@ -5,23 +5,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const getWines = async () => {
+const getWines = async (baseURL) => {
     try {
-        let baseURL;
+        const endpoint = `${baseURL}/api/wines`;
 
-        if (process.env.NODE_ENV === 'development') {
-            baseURL = `${process.env.NEXT_PUBLIC_API_URL}/api/wines`;
-        } else {
-            // If you're on the client-side, window object would be available
-            if (typeof window !== 'undefined') {
-                baseURL = `${window.location.origin}/api/wines`;
-            } else {
-                // Handle the case for server-side (this is a fallback and might not be ideal for all scenarios)
-                baseURL = '/api/wines';
-            }
-        }
-
-        const res = await fetch(baseURL, {
+        const res = await fetch(endpoint, {
             cache: "no-store",
         });
 
@@ -37,10 +25,7 @@ const getWines = async () => {
     }
 };
 
-export default async function WineList() {
-    const response = await getWines();
-    const wines = response?.wines || [];
-
+function WineList({ wines = [] }) {
     return (
         <>
         {wines.map((t) => {
@@ -89,3 +74,18 @@ export default async function WineList() {
         </>
     );
 }
+
+export async function getServerSideProps(context) {
+    const { req } = context;
+    const protocol = req.headers['x-forwarded-proto'] || 'http';
+    const baseURL = `${protocol}://${req.headers.host}`;
+    
+    const response = await getWines(baseURL);
+    const wines = response?.wines || [];
+
+    return {
+        props: { wines }
+    };
+}
+
+export default WineList;
