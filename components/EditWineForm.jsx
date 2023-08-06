@@ -19,7 +19,8 @@ export default function EditWineForm( id, name, type, description, price, status
         e.preventDefault();
 
         try{
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wines`,{
+            const baseURL = process.env.NODE_ENV === 'development' ? `${process.env.NEXT_PUBLIC_API_URL}/api/wines` : '/api/wines';
+            const res =  await fetch(baseURL, {
                 method: "PUT",
                 headers:{
                     "Content-type":"application/json"
