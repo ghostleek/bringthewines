@@ -7,7 +7,7 @@ dotenv.config();
 
 const getWines = async() => {
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wines`, {
+        const baseURL = process.env.NODE_ENV === 'development' ? `${process.env.NEXT_PUBLIC_API_URL}/api/wines` : '/api/wines';
             cache: "no-store",
         });
         if (!res.ok) {
