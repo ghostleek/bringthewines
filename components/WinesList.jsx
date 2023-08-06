@@ -12,12 +12,12 @@ const getWines = async() => {
             cache: "no-store",
         });
         if (!res.ok) {
-            throw new Error("Failed to fetch wines");
+            throw new Error(`Failed to fetch wines with status ${res.status}`);
         }
         const data = await res.json(); // Parse the response as JSON
         return data; // Assuming the response object has a 'wines' property
     } catch (error) {
-        console.log("Error loading wines");
+        console.log("Error loading wines:", error.message, error.stack);
     }
 };
 
