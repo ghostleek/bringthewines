@@ -33,6 +33,7 @@ export default function EditWineForm({ id, name, type, description, price, statu
             if (!res.ok){
                 throw new Error("Failed to update wine")
         }
+        router.refresh("/");
         router.push("/");
         } catch (error) {
             console.log(error);

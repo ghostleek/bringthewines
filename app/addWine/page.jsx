@@ -27,7 +27,7 @@ export default function AddWine(){
             return;
         }
         try {
-            const res = await fetch(`${process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/wines` : 'https://bringthewines.vercel.app/api/wines'}/api/wines`, {
+            const res = await fetch(`${process.env.NODE_ENV === 'development' ? `http://localhost:3000/` : 'https://bringthewines.vercel.app'}/api/wines`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json" 
@@ -35,7 +35,8 @@ export default function AddWine(){
                 body: JSON.stringify({name,type,price,description,status,ctscore,vintage})
                 });
         if (res.ok){
-            router.push('/')
+            router.refresh();
+            router.push('/');
         } else {
             throw new Error("Failed to create wine")
             console.log(error);
