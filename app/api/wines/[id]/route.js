@@ -1,24 +1,8 @@
-function setCORSHeaders(res) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://bringthewines-git-main-ghostleek.vercel.app');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-}
+import connectMongoDB from "@/libs/mongodb";
+import Wine from "@/models/wine";
+import { NextResponse } from "next/server";
 
-export default function handler(req, res) {
-    // Set CORS headers
-    setCORSHeaders(res);
-
-    // Handle preflight requests
-    if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
-    }
-}
-
-export async function PUT(request, { params }) {
-    setCORSHeaders(request); // Set CORS headers for the PUT method
-
+export async function PUT(request, { params }){
     try {
         const { id } = params;
         const { 
@@ -41,11 +25,9 @@ export async function PUT(request, { params }) {
     }
 }
 
-export async function GET(request, { params }) {
-    setCORSHeaders(request); // Set CORS headers for the GET method
-
+export async function GET(request, { params }){
     const { id } = params;
     await connectMongoDB();
     const wine = await Wine.findOne({ _id: id});
-    return NextResponse.json({ wine }, {status: 200});
+    return NextResponse.json({ wine }, {status: 200})
 }
