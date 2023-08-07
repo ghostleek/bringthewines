@@ -1,4 +1,3 @@
-
 // this is a client side action
 "use client";
 import { useState } from "react";
@@ -48,7 +47,7 @@ export default function EditWineForm({ id, name, type, description, price, statu
         type = "text"
         placeholder = "Name of wine"
         value={newName} 
-        onChange={(e) => setNewName(e.target.value)} 
+        onChange={e => setNewName(e.target.value)} 
         />
         <select 
             className="border border-slate-500 px-2 rounded"
@@ -67,27 +66,28 @@ export default function EditWineForm({ id, name, type, description, price, statu
         type = "text"
         placeholder = "Price"
         value={newPrice} 
-        onChange={(e) => setNewPrice(e.target.value)} 
+        onChange={e => setNewPrice(e.target.value)} 
         />
         <input 
         className= "border border-slate-500 px-2 rounded"
         type = "text"
         placeholder = "Vintage"
+        value = {newVintage}
         onChange={e => setNewVintage(e.target.value)} 
         />
         <input 
         className= "border border-slate-500 px-2 rounded"
         type = "text"
         placeholder = "CT Score"
-        value={newCtscore} 
-        onChange={(e) => setNewCtscore(e.target.value)} 
+        value={newCtscore}
+        onChange={e => setNewCtscore(e.target.value)} 
         />
 
         <input 
         className= "border border-slate-500 px-2 rounded"
         type = "text"
         placeholder = "Description of wine"
-        value={newDescription} 
+        value={newDescription}
         onChange={e => setNewDescription(e.target.value)} 
         />
         <select 
