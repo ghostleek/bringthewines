@@ -5,7 +5,7 @@ dotenv.config();
 
 const getWineById = async(id) => {
     try{
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wines`, { cache: "no-store", });
+        const res = await fetch(`${process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/wines` : 'https://bringthewines.vercel.app/api/wines'}/api/wines`, { cache: "no-store", });
         if (!res.ok) {
             throw new Error("Failed to fetch Wine");
         }

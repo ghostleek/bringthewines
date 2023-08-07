@@ -27,7 +27,7 @@ export default function AddWine(){
             return;
         }
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wines`, {
+            const res = await fetch(`${process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/wines` : 'https://bringthewines.vercel.app/api/wines'}/api/wines`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json" 
