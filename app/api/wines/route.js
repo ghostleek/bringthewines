@@ -2,6 +2,19 @@ import connectMongoDB from "@/libs/mongodb";
 import Wine from "@/models/wine";
 import { NextResponse } from "next/server";
 
+export default function handler(req, res) {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', 'https://bringthewines-git-main-ghostleek.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
+}
 // create routes for POST
 // confirmed POST works via postman
 export async function POST(request){
