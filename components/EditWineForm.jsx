@@ -7,12 +7,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export default function EditWineForm( id, name, type, description, price, status){
+export default function EditWineForm( id, name, type, description, price, status, vintage, ctscore){
     const [newName, setNewName] = useState(name);
     const [newType, setNewType] = useState(type);
     const [newPrice, setNewPrice] = useState(price);
     const [newDescription, setNewDescription] = useState(description);
     const [newStatus, setNewStatus] = useState(status);
+    const [newVintage, setVintage] = useState(vintage);
+    const [newCtscore, setCtscore] = useState(ctscore);
 
     const router = useRouter();
 
@@ -64,6 +66,19 @@ export default function EditWineForm( id, name, type, description, price, status
         placeholder = "Price"
         onChange={e => setNewPrice(e.target.value)} 
         />
+        <input 
+        className= "border border-slate-500 px-2 rounded"
+        type = "text"
+        placeholder = "Vintage"
+        onChange={e => setNewVintage(e.target.value)} 
+        />
+        <input 
+        className= "border border-slate-500 px-2 rounded"
+        type = "text"
+        placeholder = "CT Score"
+        onChange={e => setNewCtscore(e.target.value)} 
+        />
+
         <input 
         className= "border border-slate-500 px-2 rounded"
         type = "text"

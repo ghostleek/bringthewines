@@ -10,7 +10,7 @@ export async function PUT(request, { params }){
     return NextResponse.json({ message: "Wine Updated"}, { status:200});
 }
 
-export async function GET(request,{ params }){
+export async function GET(request, { params }){
     const { id } = params;
     await connectMongoDB();
     const wine = await Wine.findOne({_id: id});
