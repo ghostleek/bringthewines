@@ -8,6 +8,21 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+export default async function handler(req, res) {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', 'https://bringthewines-git-main-ghostleek.vercel.app');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Handle preflight requests (OPTION method)
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
+    }
+}
+
+
 export default function AddWine(){
     const [name, setName] = useState("")
     const [type, setType] = useState("")
