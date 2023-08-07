@@ -22,7 +22,7 @@ export default function EditWineForm({ id, name, type, description, price, statu
 
         try{
 
-            const baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/wines/${id}` : 'https://bringthewines.vercel.app/api/wines/${id}';
+            const baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/wines?id=${id}` : `https://bringthewines.vercel.app/api/wines?id=${id}`;
             const res =  await fetch(baseURL, {
                 method: "PUT",
                 headers:{
