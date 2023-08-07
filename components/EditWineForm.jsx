@@ -7,14 +7,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export default function EditWineForm( id, name, type, description, price, status, vintage, ctscore){
+export default function EditWineForm({ id, name, type, description, price, status, vintage, ctscore }) {
     const [newName, setNewName] = useState(name);
     const [newType, setNewType] = useState(type);
     const [newPrice, setNewPrice] = useState(price);
     const [newDescription, setNewDescription] = useState(description);
     const [newStatus, setNewStatus] = useState(status);
-    const [newVintage, setVintage] = useState(vintage);
-    const [newCtscore, setCtscore] = useState(ctscore);
+    const [newVintage, setNewVintage] = useState(vintage);
+    const [newCtscore, setNewCtscore] = useState(ctscore);
 
     const router = useRouter();
 
@@ -22,13 +22,14 @@ export default function EditWineForm( id, name, type, description, price, status
         e.preventDefault();
 
         try{
+
             const baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:3000/api/wines/${id}` : 'https://bringthewines.vercel.app/api/wines/${id}';
             const res =  await fetch(baseURL, {
                 method: "PUT",
                 headers:{
                     "Content-type":"application/json"
                 },
-                body: JSON.stringify({ newName, newType, newPrice, newDescription, newStatus})
+                body: JSON.stringify({ newName, newType, newPrice, newDescription, newStatus, newVintage, newCtscore})
             });
             if (!res.ok){
                 throw new Error("Failed to update wine")
@@ -46,7 +47,8 @@ export default function EditWineForm( id, name, type, description, price, status
         className= "border border-slate-500 px-2 rounded"
         type = "text"
         placeholder = "Name of wine"
-        onChange={e => setNewName(e.target.value)} 
+        value={newName} 
+        onChange={(e) => setNewName(e.target.value)} 
         />
         <select 
             className="border border-slate-500 px-2 rounded"
@@ -64,7 +66,8 @@ export default function EditWineForm( id, name, type, description, price, status
         className= "price-input border border-slate-500 px-2 rounded"
         type = "text"
         placeholder = "Price"
-        onChange={e => setNewPrice(e.target.value)} 
+        value={newPrice} 
+        onChange={(e) => setNewPrice(e.target.value)} 
         />
         <input 
         className= "border border-slate-500 px-2 rounded"
@@ -76,13 +79,15 @@ export default function EditWineForm( id, name, type, description, price, status
         className= "border border-slate-500 px-2 rounded"
         type = "text"
         placeholder = "CT Score"
-        onChange={e => setNewCtscore(e.target.value)} 
+        value={newCtscore} 
+        onChange={(e) => setNewCtscore(e.target.value)} 
         />
 
         <input 
         className= "border border-slate-500 px-2 rounded"
         type = "text"
         placeholder = "Description of wine"
+        value={newDescription} 
         onChange={e => setNewDescription(e.target.value)} 
         />
         <select 
