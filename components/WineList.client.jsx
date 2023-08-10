@@ -108,11 +108,11 @@ export default function WineList() {
         </div>
         {filteredWines.map((t) => {
             // Prepare the WhatsApp message
-            const whatsappMessage = `Hi, I am interested to buy ${t.name} for $ ${t.price}. Can I suggest a few time/places for self collection`;
+            const whatsappMessage = `Hi, I am interested to buy ${t.name} for $ ${t.price}. Can I suggest a few time/places for self collection?`;
             // Encode the message for use in a URL
             const encodedMessage = encodeURIComponent(whatsappMessage);
             // Create the WhatsApp URL
-            const whatsappURL = `https://wa.me/+6597383295?text=${encodedMessage}`;
+            const whatsappURL = `https://wa.me/+6582011633?text=${encodedMessage}`;
 
             return (
                 <><div
