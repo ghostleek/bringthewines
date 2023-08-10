@@ -25,10 +25,25 @@ const getWines = async() => {
 
 
 export default function WineList() {
-    const [priceFilter, setPriceFilter] = useState(null); // Possible values: null, "$", "$$", "$$$"
+    const [priceFilter, setPriceFilter] = useState(null);
     const [selectedType, setSelectedType] = useState("All");
     const [wines, setWines] = useState([]);
-    const filteredWines = selectedType === "All" ? wines : wines.filter(wine => wine.type === selectedType);
+    const filteredWines = wines.filter(wine => {
+        if (selectedType !== "All" && wine.type !== selectedType) {
+            return false;
+        }
+    
+        switch (priceFilter) {
+            case "$":
+                return wine.price >= 0 && wine.price <= 100.99;
+            case "$$":
+                return wine.price >= 101 && wine.price <= 200;
+            case "$$$":
+                return wine.price >= 201;
+            default:
+                return true;
+        }
+    });    
 
     useEffect(() => {
         const fetchWines = async () => {
@@ -41,12 +56,20 @@ export default function WineList() {
 
     return (
         <>
-            <div className="inline-flex">
-                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-l" onClick={() => setSelectedType("All")}>All</button>
-                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4" onClick={() => setSelectedType("Red")}>Red</button> 
-                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-r" onClick={() => setSelectedType("White")}>White</button>
-                {/* Add more types as needed */}
+        <div className="inline-flex justify-between w-full">
+            <div>
+                {/* Existing filter buttons */}
+                <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-l" onClick={() => setSelectedType("All")}>All</button>
+                <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4" onClick={() => setSelectedType("Red")}>Red</button>
+                <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-r" onClick={() => setSelectedType("White")}>White</button>
             </div>
+            <div>
+                {/* New sort by price buttons */}
+                <button className="bg-gray-100 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-l" onClick={() => setPriceFilter("$")}>$</button>
+                <button className="bg-gray-100 hover:bg-gray-400 text-gray-800 py-2 px-4" onClick={() => setPriceFilter("$$")}>$$</button>
+                <button className="bg-gray-100 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-r" onClick={() => setPriceFilter("$$$")}>$$$</button>
+            </div>
+        </div>
         {filteredWines.map((t) => {
             // Prepare the WhatsApp message
             const whatsappMessage = `Hi, I am interested to buy ${t.name} for $ ${t.price}. Can I suggest a few time/places for self collection`;
