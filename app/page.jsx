@@ -1,9 +1,14 @@
 import connectMongoDB from "@/libs/mongodb";
-import WinesList from "@/components/WinesList";
+import dynamic from 'next/dynamic';
 
-export default function Home(){
-  return <WinesList />;
+// Dynamically import the WineList for client-side rendering
+const WineList = dynamic(() => import('@/components/WineList.client'), {
+  ssr: false  // This will load the component only on client-side
+});
+
+export default function Home() {
+  return <WineList />;
 }
 
-// confirm that MongoDB is connected
+// Confirm that MongoDB is connected
 connectMongoDB();
