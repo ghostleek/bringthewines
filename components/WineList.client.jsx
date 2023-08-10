@@ -123,12 +123,14 @@ export default function WineList() {
                             <div className="pl-1" style={{ color: t.type === 'Red' ? 'red' : t.type === 'White' ? 'grey' : 'inherit' }}>
                                 {t.type}
                             </div>
+                            {/* 
                             <div className="flex gap-2">
                                 <RemoveBtn id={t._id} />
                                 <Link href={`/editWine/${t._id}`}>
                                     <HiPencilAlt size={24} />
                                 </Link>
                             </div>
+                            */}
                         </div>
                         <div class="flex pb-1"><h2 className="font-light bg-stone-100 rounded-md p-2"> {t.vintage} </h2><h2 className="font-light text-xl p-2">{t.name}</h2></div>
                         <div className="pb-2">{t.description}</div>
@@ -155,7 +157,7 @@ export default function WineList() {
                             </div>
                         </div>
 
-                        {/* Show the WhatsApp button if the status is "Available" */}
+                        {/* Show the WhatsApp button if the status is "Available" */}                        
                         <div>
                             {t.status === 'Available' ? (
                                 <a href={whatsappURL} target="_blank" rel="noopener noreferrer">
