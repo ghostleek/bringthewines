@@ -1,6 +1,6 @@
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
-import {HiPencilAlt} from "react-icons/hi"
+import {HiPencilAlt, HiOutlineInformationCircle} from "react-icons/hi"
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -37,17 +37,43 @@ export default async function WineList() {
             const whatsappURL = `https://wa.me/+6597383295?text=${encodedMessage}`;
 
             return (
-
-            <div 
-            key = {t._id}
-            className = "mt-4 p-4 border border-slate-300 rounded-md flex justify-between gap-5 items-start">
-                <div>
-                    <div style={{color: t.type === 'Red' ? 'red' : t.type === 'White' ? 'grey' : 'inherit'}}>{t.type}</div>
-                    <div class = "flex"><h2 className="font-light bg-stone-100 rounded-md p-2"> {t.vintage} </h2><h2 className = "font-light text-xl p-2">{t.name}</h2></div>
+                <div 
+                key={t._id}
+                className="mt-4 p-4 border border-slate-300 rounded-md flex flex-col gap-5">
+                    <div>
+                        <div className="flex justify-between">
+                            <div className="pl-1" style={{ color: t.type === 'Red' ? 'red' : t.type === 'White' ? 'grey' : 'inherit' }}>
+                                {t.type}
+                            </div>
+                            <div className="flex gap-2">
+                                <RemoveBtn id={t._id}/>
+                                <Link href={`/editWine/${t._id}`}>
+                                    <HiPencilAlt size={24} />
+                                </Link>
+                            </div>
+                        </div>
+                    <div class = "flex pb-1"><h2 className="font-light bg-stone-100 rounded-md p-2"> {t.vintage} </h2><h2 className = "font-light text-xl p-2">{t.name}</h2></div>
                     <div className = "pb-2">{t.description}</div>
-                    <div class = "flex"><h3 className = "font-bold">${t.price} </h3>&nbsp;| {t.ctscore} </div>
+                    <div class = "flex"><h3 className = "font-bold text-xl">${t.price} </h3></div>
+                    <div className="flex items-center gap-2">
+                            <span>{t.ctscore}</span>
+                            <div className="relative inline-block hover:cursor-pointer group">
+                            <HiOutlineInformationCircle className="hover:opacity-100" />
+                            <div className="absolute left-full top-1/2 transform -translate-y-1/3 w-72 p-2 text-xs bg-white border rounded-md shadow-lg opacity-0 group-hover:opacity-100 z-10">
+                                Score based on Parker scoring system. <br></br>
+                                 
+                                <a class = "red"
+                                    href="https://www.wineinvestment.com/sg/learn/magazine/2021/05/the-role-of-wine-critics-2/" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                >
+                                    Read more
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     {/* Show the WhatsApp button if the status is "Available" */}
-                    <div class = "pt-3">
+                    <div class = "pt-3 flex justify-end">
                     {t.status === 'Available' ? (
                         <a href={whatsappURL} target="_blank" rel="noopener noreferrer">
                         <button className="bg-black text-white p-2 rounded-md w-28">
@@ -60,13 +86,6 @@ export default async function WineList() {
                         </button>
                     ) : null}                    
                 </div>                
-                </div>
-                <div className ="flex gap-2">
-                    {/* probably have a hacky front-end way to hide these buttons*/}
-                    <RemoveBtn id={t._id}/>
-                    <Link href={`/editWine/${t._id}`}>
-                        <HiPencilAlt size ={24} />
-                    </Link>
                 </div>
             </div>
             );
