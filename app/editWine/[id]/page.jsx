@@ -21,7 +21,7 @@ const getWineById = async(id) => {
 export default async function EditWine({ params }){
     const { id } = params;
     const { wine } = await getWineById(id);
-    console.log('Wine:', wine); // check wine data strcutrue
+    console.log('Wine:', wine); // check wine data structure
     console.log("id: ", id)
     const { name, price, description, status, type, ctscore, vintage } = wine;
 
