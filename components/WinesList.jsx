@@ -37,12 +37,21 @@ export default async function WineList() {
             const whatsappURL = `https://wa.me/+6597383295?text=${encodedMessage}`;
 
             return (
-
-            <div 
-            key = {t._id}
-            className = "mt-4 p-4 border border-slate-300 rounded-md flex justify-between gap-5 items-start">
-                <div>
-                    <div style={{color: t.type === 'Red' ? 'red' : t.type === 'White' ? 'grey' : 'inherit'}}>{t.type}</div>
+                <div 
+                key={t._id}
+                className="mt-4 p-4 border border-slate-300 rounded-md flex flex-col gap-5">
+                    <div>
+                        <div className="flex justify-between">
+                            <div className="pl-1" style={{ color: t.type === 'Red' ? 'red' : t.type === 'White' ? 'grey' : 'inherit' }}>
+                                {t.type}
+                            </div>
+                            <div className="flex gap-2">
+                                <RemoveBtn id={t._id}/>
+                                <Link href={`/editWine/${t._id}`}>
+                                    <HiPencilAlt size={24} />
+                                </Link>
+                            </div>
+                        </div>
                     <div class = "flex"><h2 className="font-light bg-stone-100 rounded-md p-2"> {t.vintage} </h2><h2 className = "font-light text-xl p-2">{t.name}</h2></div>
                     <div className = "pb-2">{t.description}</div>
                     <div class = "flex"><h3 className = "font-bold">${t.price} </h3>&nbsp;| {t.ctscore} </div>
@@ -60,13 +69,6 @@ export default async function WineList() {
                         </button>
                     ) : null}                    
                 </div>                
-                </div>
-                <div className ="flex gap-2">
-                    {/* probably have a hacky front-end way to hide these buttons*/}
-                    <RemoveBtn id={t._id}/>
-                    <Link href={`/editWine/${t._id}`}>
-                        <HiPencilAlt size ={24} />
-                    </Link>
                 </div>
             </div>
             );
