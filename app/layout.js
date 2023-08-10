@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
        {/* centre the div and set max width */}
       <div className="max-w-3xl mx-auto p-4">
       <Navbar />
-      <div className="mt-8">{children}</div>
+      <div className="mt-4">{children}</div>
       </div>
       </body>
     </html>
