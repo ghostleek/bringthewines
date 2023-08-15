@@ -1,4 +1,5 @@
-import mongoose, { Schema } from "mongoose";
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const wineSchema = new Schema(
     {
@@ -38,7 +39,7 @@ const wineSchema = new Schema(
 
 const Wine = mongoose.models.Wine || mongoose.model("Wine", wineSchema);
 
-export default Wine;
+module.exports = Wine;
 
 
 
