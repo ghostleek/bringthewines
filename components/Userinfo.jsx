@@ -10,7 +10,8 @@ export default function UserInfo() {
     return (
       <div className= "p-3 rounded-md flex flex-col gap-3 bg-yellow-100">
         <div>
-          You are logged in as: <span className="font-bold">{session?.user?.name}</span>  {session?.user?.email}
+          You are logged in as: <span className="font-bold">{session?.user?.name}</span>  {session?.user?.email}  <br></br>      
+          Note: If you are not Kahhow or Melvin, signing up does nothing for now
         </div>
       </div>
     );
