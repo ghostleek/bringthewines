@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react"
 import {HiPlusCircle} from "react-icons/hi"
@@ -8,11 +9,21 @@ export default function Navbar(){
     return (
         <nav className = "flex justify-between items-center bg-stone-300 px-8 py-3 rounded-md">
             <Link className="font-light" href={"/"}>Bring the Wines</Link>
-            {status === 'authenticated' ? (
-            <button onClick={() => signOut()}>Sign Out</button>
-            ) : (
-            <button onClick={() => signIn()}>Sign In</button>
-            )}
+            {status === "authenticated" ? (
+        <button
+          onClick={() => signOut()}
+          className="bg-slate-900 text-white px-6 py-2 rounded-md"
+        >
+          Sign Out
+        </button>
+      ) : (
+        <button
+          onClick={() => signIn("google")}
+          className="bg-slate-900 text-white px-6 py-2 rounded-md"
+        >
+          Sign In
+        </button>
+      )}
             {/* <Link className="p-2 rounded-md fill-white" href={"/addWine"}><HiPlusCircle size ={24} />
 </Link>*/}
         </nav>
