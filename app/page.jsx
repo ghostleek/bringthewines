@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
-import Script from 'next/script'
+import Script from 'next/script';
+import UserInfo from '@/components/UserInfo';
 // import connectMongoDB from "@/libs/mongodb";
 
 // Dynamically import the WineList for client-side rendering
@@ -26,6 +27,9 @@ export default function Home() {
         }}
     />
       <WineList />
+      <div className = "pt-3">
+      <UserInfo />
+      </div>
     </>
   );
 }

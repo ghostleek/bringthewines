@@ -1,6 +1,6 @@
 "use client";
 
-import SignInBtn from "./SignInBtn";
+// import SignInBtn from "./SignInBtn";
 import { useSession } from "next-auth/react";
 
 export default function UserInfo() {
@@ -8,16 +8,13 @@ export default function UserInfo() {
 
   if (status === "authenticated") {
     return (
-      <div className="shadow-xl p-8 rounded-md flex flex-col gap-3 bg-yellow-200">
+      <div className= "p-3 rounded-md flex flex-col gap-3 bg-yellow-100">
         <div>
-          Name: <span className="font-bold">{session?.user?.name}</span>
-        </div>
-        <div>
-          Email: <span className="font-bold">{session?.user?.email}</span>
+          You are logged in as: <span className="font-bold">{session?.user?.name}</span>  {session?.user?.email}
         </div>
       </div>
     );
   } else {
-    return <SignInBtn />;
+    // return <SignInBtn />;
   }
 }
