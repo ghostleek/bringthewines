@@ -3,6 +3,7 @@ import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 import {HiPencilAlt, HiOutlineInformationCircle} from "react-icons/hi"
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -25,9 +26,11 @@ const getWines = async() => {
 
 
 export default function WineList() {
+    // create filters here, this is a client side thing
     const [priceFilter, setPriceFilter] = useState(null);
     const [selectedType, setSelectedType] = useState("All");
     const [wines, setWines] = useState([]);
+    // filtered wines are subject to these filters 
     const filteredWines = wines.filter(wine => {
         if (selectedType !== "All" && wine.type !== selectedType) {
             return false;
@@ -44,6 +47,12 @@ export default function WineList() {
                 return true;
         }
     });    
+    // create a conditional check for users to selectively enable delete or edit
+
+    const { data: session } = useSession(); // Get the user's session
+    const userEmail = session?.user?.email; // Get the email from the session
+    
+    const canEditDelete = ["leekahhow@gmail.com", "kahhow@open.gov.sg", "Melvin.yeo@gmail.com"].includes(userEmail); // Check if user can edit or delete
 
     useEffect(() => {
         const fetchWines = async () => {
@@ -123,14 +132,13 @@ export default function WineList() {
                             <div className="pl-1" style={{ color: t.type === 'Red' ? 'red' : t.type === 'White' ? 'grey' : 'inherit' }}>
                                 {t.type}
                             </div>
-                            {/* 
-                            <div className="flex gap-2">
+                            {canEditDelete && <div className="flex gap-2">
                                 <RemoveBtn id={t._id} />
                                 <Link href={`/editWine/${t._id}`}>
                                     <HiPencilAlt size={24} />
                                 </Link>
                             </div>
-                            */}
+                        }
                         </div>
                         <div class="flex pb-1"><h2 className="font-light bg-stone-100 rounded-md p-2"> {t.vintage} </h2><h2 className="font-light text-xl p-2">{t.name}</h2></div>
                         <div className="pb-2">{t.description}</div>
