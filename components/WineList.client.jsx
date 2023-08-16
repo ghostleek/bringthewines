@@ -48,11 +48,11 @@ export default function WineList() {
         }
     });    
     // create a conditional check for users to selectively enable delete or edit
-    const adminEmails = process.env.ADMIN_EMAILS.split(','); // processing admin emails via env instead of exposing in code for security
+
     const { data: session } = useSession(); // Get the user's session
     const userEmail = session?.user?.email; // Get the email from the session
     
-    const canEditDelete = adminEmails.includes(userEmail); //amended to check via env var
+    const canEditDelete = ["leekahhow@gmail.com", "kahhow@open.gov.sg", "Melvin.yeo@gmail.com"].includes(userEmail); // Check if user can edit or delete
 
     useEffect(() => {
         const fetchWines = async () => {
@@ -138,7 +138,7 @@ export default function WineList() {
                                     <HiPencilAlt size={24} />
                                 </Link>
                             </div>
-                            }
+                        }
                         </div>
                         <div class="flex pb-1"><h2 className="font-light bg-stone-100 rounded-md p-2"> {t.vintage} </h2><h2 className="font-light text-xl p-2">{t.name}</h2></div>
                         <div className="pb-2">{t.description}</div>
