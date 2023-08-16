@@ -26,10 +26,10 @@ export default function Home() {
         `,
         }}
     />
-      <WineList />
-      <div className = "pt-3">
+      <div className = "pb-3">
       <UserInfo />
       </div>
+      <WineList />
     </>
   );
 }
