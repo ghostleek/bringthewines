@@ -10,8 +10,10 @@ First, run
 npm i
 ```
 
-Get the .env variables from Kahhow
-Keep .env at the root of the development folder
+Get the .env variables from Kahhow<br>
+Keep .env at the root of the development folder, else you will start seeing errors like these:
+<img width="354" alt="image" src="https://github.com/ghostleek/bringthewines/assets/44336310/d6d89981-def4-41bc-99c3-659580e37441">
+
 
 Then run the development server:
 
