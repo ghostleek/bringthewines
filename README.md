@@ -1,9 +1,11 @@
 # Bring the Wines
-Bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
 
 ## Getting Started
 
-First, run the development server:
+First, run 
+```npm i```
+
+Then run the development server:
 
 ```bash
 npm run dev
