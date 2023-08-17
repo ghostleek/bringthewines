@@ -26,6 +26,8 @@ const getWines = async() => {
 
 
 export default function WineList() {
+    const [isLoading, setLoading] = useState(true);
+
     // create filters here, this is a client side thing
     const [priceFilter, setPriceFilter] = useState(null);
     const [selectedType, setSelectedType] = useState("All");
@@ -56,8 +58,10 @@ export default function WineList() {
 
     useEffect(() => {
         const fetchWines = async () => {
+            setLoading(true); // Start loading
             const response = await getWines();
             setWines(response?.wines || []);
+            setLoading(false); // End loading
         };
     
         fetchWines();
@@ -115,6 +119,10 @@ export default function WineList() {
                 </button>
             </div>
         </div>
+        {isLoading ? (
+    <div>Wines still fermenting, please wait...</div>
+    ) : (
+    <>
         {filteredWines.map((t) => {
             // Prepare the WhatsApp message
             const whatsappMessage = `Hi, I am interested to buy ${t.name} for $ ${t.price}. Can I suggest a few time/places for self collection?`;
@@ -124,7 +132,7 @@ export default function WineList() {
             const whatsappURL = `https://wa.me/+6582011633?text=${encodedMessage}`;
 
             return (
-                <><div
+                <div
                     key={t._id}
                     className="mt-4 p-4 border border-slate-300 rounded-md flex flex-col gap-5">
                     <div>
@@ -180,11 +188,12 @@ export default function WineList() {
                             ) : null}
                         </div>
                     </div>
-                </div>
-                
-                    </>
-        );        
+                    </div>
+            );
         })}
+    </>
+)}
+
         </>
     );
 }
