@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://bringthewines_prod:60SYJAzwtfhs5EwO@cluster0.dzdvfvo.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://{replace this}', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
