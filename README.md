@@ -3,7 +3,12 @@
 ## Getting Started
 
 First, run 
-```npm i```
+```
+npm i
+```
+
+Get the .env variables from Kahhow
+Keep .env at the root of the development folder
 
 Then run the development server:
 
